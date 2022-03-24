@@ -19,7 +19,7 @@
 
 
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"   
-[scrollWindow]="false" style="height: 400px; overflow-y: scroll;display: flex;">
+[scrollWindow]="false" style="display: flex;">
 
 
 <div *ngFor="let item of items" >
@@ -32,8 +32,12 @@
 
  
 </div>
-</div>
 
-<button (click)="onscroll('prev')"  [disabled]="prevbtn" id="pre">pre</button>
+</div>
+<div class="text-center">
+<button (click)="onscroll('prev')"  [disabled]="!prevbtn" id="pre">pre</button>
+<!-- <button (click)="onscroll('prev')"  [attr.disabled]="pageNo<=1?true:null" id="pre">pre</button> -->
+{{this.page}}
 <button (click)="onscroll('next')" id="next" [disabled]="!nextbtn">next</button>
 
+</div>
