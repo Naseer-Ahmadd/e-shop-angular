@@ -1,0 +1,39 @@
+<div class="container">
+  <header class="jumbotron">
+    <p>Welcome {{username}}</p>
+    <p>hello this is home</p>
+  </header>
+</div>
+
+
+<!-- <div class="items">
+  <div *ngFor="let item of items$ | async">
+      <b>ID: </b> {{item.name}}<br>
+      <b>Title: </b>{{item.price}}<br>
+      <img src="{{item.image}}" alt="" width="150px" height="150px">
+      <br>
+      <br>
+      <br>
+  </div>
+</div> -->
+
+
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"   
+[scrollWindow]="false" style="height: 400px; overflow-y: scroll;display: flex;">
+
+
+<div *ngFor="let item of items" >
+  <b>ID: </b> {{item.name}}<br>
+  <b>Title: </b>{{item.price}}<br>
+  <img src="{{item.image}}" alt="" width="150px" height="150px">
+  <br>
+  <br>
+  <br>
+
+ 
+</div>
+</div>
+
+<button (click)="onscroll('prev')"  [disabled]="prevbtn" id="pre">pre</button>
+<button (click)="onscroll('next')" id="next" [disabled]="!nextbtn">next</button>
+

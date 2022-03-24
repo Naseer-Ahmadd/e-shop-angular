@@ -1,0 +1,170 @@
+
+<br>
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+
+
+<ng-template #template  class="mod">
+  <div class="container modd">
+  <div class="container" >
+    <img src="{{modalInfo.image}}" alt="" width="300px" height= "400px">
+  </div>
+  <div class="container">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Product Inforamtion</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+           <span aria-hidden="true">×</span>
+        </button>
+     </div>
+     <div class="modal-body">
+      <span ><b>Product name:</b></span> {{modalInfo.name}} <br> <br>
+      <span><b>Product Description:</b></span> {{modalInfo.description}} <br> <br>
+      <span><b>Product Price: </b></span> &#8377; {{modalInfo.price}}
+  
+     </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+     </div>
+    </div> 
+
+  </div>
+</ng-template>
+
+
+
+
+<span class="h3 m-3  ">Top Categories</span>
+<div class="container ">
+  <div class="card-groups " style="display: flex; " >
+    <!-- <div class="card m-2 " style="width: 12rem;" >
+      <img src="{{allCats.image}}" alt="" height="150px">
+      <div class="card-body">
+        <a class="btn btn-outline-primary" (click)=getMobilesCategory()  >{{allCats.name}}</a>
+      </div> 
+    </div>-->
+    <div class="card m-2 " style="width: 12rem;" >
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMIvou2LgSvkmUnKPReCWmiGg4MlutigGU5Q&usqp=CAU" height="150px">
+      <div class="card-body">
+        <a class="btn btn-outline-primary" (click)="getAllProducts()"  >All products</a>
+      </div>
+    </div>
+    <div class="card m-2 " style="width: 12rem;" >
+      <img src="https://m.media-amazon.com/images/I/61VuVU94RnL._SL1500_.jpg" height="150px">
+      <div class="card-body">
+        <a class="btn btn-outline-primary" (click)="getMobilesCategory()"  >Mobile Phones</a>
+      </div>
+    </div>
+    <div class="card m-2 " style="width: 12rem;" >
+      <img src="https://m.media-amazon.com/images/I/71tpzwPFBOL._AC_UL320_.jpg" height="150px">
+      <div class="card-body">
+        <a class="btn btn-outline-primary" (click)="getWatchesCategory()" >watches</a>
+      </div>
+    </div>
+    <div class="card m-2 " style="width: 12rem;" >
+      <img src="https://m.media-amazon.com/images/I/71Kb2dJCxWL._AC_UY218_.jpg" height="150px">
+      <div class="card-body">
+        <a class="btn btn-outline-primary" (click)="getBooksCategory()"  >Books</a>
+      </div>
+    </div>
+       
+    </div>
+</div>
+
+
+<br><br>
+
+
+<div class="container mt-2" *ngIf="showAllProds && !showWatches">
+
+  <h3 class="h3 " >All Products </h3>
+<!-- filter:searchText -->
+<!-- | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength} -->
+      <div class="card-groups m-2" style="display: inline-block;margin-left: 50%;" *ngFor="let allProds of productList |  filter:searchKey | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength}  " >
+      <div class="card" style="width: 14rem;" >
+          <img src="{{allProds.image}}" alt="" height="200px">
+          <!-- <img class="card-img-top" src={{allProducts.image}} alt="Card image cap"> -->
+          <div class="card-body">
+            <h5 class="card-title">{{allProds.name}}</h5>
+            <!-- <p class="card-text">{{allProds.description}}</p> -->
+            <p class="card-text">&#8377; {{allProds.price}}</p>
+            <a type="button" class="btn btn-primary" (click)="openModal(template,allProds,'lg')">More Info</a>
+
+            <a  class="btn btn-primary mt-1" (click)="addToCart(allProds._id,1)">Add to cart</a>
+            <!-- <a  class="btn btn-primary" (click)="()">More Info</a> -->
+
+          </div>
+        </div>
+      </div>
+
+<br><br><br>
+      <pagination-controls class="my-pagination text-center" (pageChange)="page = $event"></pagination-controls>
+  </div>
+
+
+
+
+
+<div class="container mt-2" *ngIf="!showAllProds && !showWatches && !showBooks" >
+  <h2 class="h3 m-3 ">Latest Smart Phones</h2>
+    <div class="card-groups m-2" style="display: inline-block;margin-left: 50%;" *ngFor="let moblie of mobileCategoryList" >
+    <div class="card" style="width: 14rem;" >
+        <img src="{{moblie.image}}" alt="" height="200px">
+        <!-- <img class="card-img-top" src={{allProducts.image}} alt="Card image cap"> -->
+        <div class="card-body">
+          <h5 class="card-title">{{moblie.name}}</h5>
+          <!-- <p class="card-text">{{moblie.description}}</p> -->
+          <p class="card-text">&#8377; {{moblie.price}}</p>
+          <a type="button" class="btn btn-primary mb-1" (click)="openModal(template,moblie,'lg')">More Info</a>
+
+          <a  class="btn btn-primary" (click)="addToCart(moblie,1)">Add to cart</a>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="container mt-2" *ngIf="!showAllProds  && !showBooks && !showMobiles" >
+  <h2 class="h3 m-3 ">Latest  Watches</h2>
+    <div class="card-groups m-2" style="display: inline-block;margin-left: 50%;" *ngFor="let watch of watchesCategoryList" >
+    <div class="card" style="width: 14rem;" >
+        <img src="{{watch.image}}" alt="" height="200px">
+        <!-- <img class="card-img-top" src={{allProducts.image}} alt="Card image cap"> -->
+        <div class="card-body">
+          <h5 class="card-title">{{watch.name}}</h5>
+          <!-- <p class="card-text">{{watch.description}}</p> -->
+          <p class="card-text">&#8377; {{watch.price}}</p>
+          <a type="button" class="btn btn-primary mb-1" (click)="openModal(template,watch,'lg')">More Info</a>
+
+          <a  class="btn btn-primary" (click)="addToCart(watch,1)">Add to cart</a>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="container mt-2" *ngIf="!showAllProds && !showMobiles && !showWatches" >
+  <h2 class="h3 m-3 ">Trending Books</h2>
+    <div class="card-groups m-2" style="display: inline-block;margin-left: 50%;" *ngFor="let book of booksCategoryList" >
+    <div class="card" style="width: 14rem;" >
+        <img src="{{book.image}}" alt="" height="200px">
+        <!-- <img class="card-img-top" src={{allProducts.image}} alt="Card image cap"> -->
+        <div class="card-body">
+          <h5 class="card-title">{{book.name}}</h5>
+          <!-- <p class="card-text">{{book.description}}</p> -->
+          <p class="card-text">&#8377; {{book.price}}</p>
+          <a type="button" class="btn btn-primary mb-1" (click)="openModal(template,book,'lg')">More Info</a>
+
+          <a  class="btn btn-primary" (click)="addToCart(book,1)">Add to cart</a>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
